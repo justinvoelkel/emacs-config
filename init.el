@@ -35,6 +35,7 @@ There are two things you can do about this warning:
 
 (use-package nlinum
   :ensure t)
+(setq nlinum-format "%4d \u2502")
 (global-nlinum-mode t)
 (use-package powerline
   :ensure t)
@@ -42,12 +43,12 @@ There are two things you can do about this warning:
 
 (require 'whitespace)
 (global-whitespace-mode t)
-(setq whitespace-display-mappings
-  '(
-    (space-mark 32 [183] [46])
-    (newline-mark 10 [182 10])
-    (tab-mark 9 [9655 9] [92 9])
-    ))
+;; (setq whitespace-display-mappings
+;;   '(
+;;     (space-mark 32 [183] [46])
+;;     (newline-mark 10 [182 10])
+;;     (tab-mark 9 [9655 9] [92 9])
+;;     ))
 
 (use-package helm
   :bind (("M-x" . helm-M-x))
@@ -109,6 +110,17 @@ There are two things you can do about this warning:
   :config
   (add-to-list 'mmm-save-local-variables '(syntax-ppss-table buffer)))
 
+
+;; csharp
+(use-package omnisharp
+  :ensure t
+  :mode ("\\.cs\\'" . csharp-mode))
+
+
+(use-package xml-mode
+  :mode "\\.xml\\'")
+
+
 (setq js-indent-level 2)
 ;; ==================================
 ;; Theme Customizations (Do Not Touch)
@@ -120,13 +132,11 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(custom-enabled-themes (quote (tsdh-dark)))
+ '(custom-enabled-themes '(tsdh-dark))
  '(custom-safe-themes
-   (quote
-    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
+   '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
  '(hl-todo-keyword-faces
-   (quote
-    (("TODO" . "#dc752f")
+   '(("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
      ("THEM" . "#2aa198")
      ("PROG" . "#268bd2")
@@ -140,11 +150,10 @@ There are two things you can do about this warning:
      ("TEMP" . "#875f00")
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f"))))
+     ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   (quote
-    (auto-complete use-package spacemacs-theme smartparens rainbow-delimiters powerline helm elpy dimmer better-defaults beacon)))
- '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#262626"))))
+   '(auto-complete use-package spacemacs-theme smartparens rainbow-delimiters powerline helm elpy dimmer better-defaults beacon))
+ '(pdf-view-midnight-colors '("#b2b2b2" . "#262626")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
