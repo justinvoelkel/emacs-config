@@ -17,6 +17,8 @@ There are two things you can do about this warning:
   ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
   )
 (add-to-list 'package-archives
+      '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
       '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (package-initialize)
@@ -32,6 +34,10 @@ There are two things you can do about this warning:
 ;; Customizations
 ;; =====================
 (display-time-mode t)
+
+;; Don't clutter up directories with files~
+(setq backup-directory-alist `(("." . "~/emacs-backups")))
+
 
 (use-package nlinum
   :ensure t)
@@ -78,30 +84,29 @@ There are two things you can do about this warning:
 ;; =====================
 ;; Development Setup
 ;; =====================
-(use-package elpy
+
+(use-package php-mode
   :ensure t
+  :mode "\\.php\\'")
+
+(use-package elpy
   :mode "\\*.py\\'")
 (setq elpy-rpc-python-command "python3")
 
 ;; parenthesis completing and matching
 (use-package smartparens
   :ensure t)
-(require 'smartparens-config)
+;; (require 'smartparens-config)
 ;; (add-hook 'elpy-mode-hook #'smartparens-mode)
 
 ;; delimiter highlighting
 (use-package rainbow-delimiters
-  :ensure t)
-(add-hook 'elpy-mode-hook #'rainbow-delimiters-mode)
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (use-package auto-complete
   :ensure t)
 (ac-config-default)
-
-;; js linting
-(use-package flymake-eslint
-  :ensure t
-  :mode "\\.js\\'")
 
 ;; vue specific mode
 (use-package vue-mode
@@ -116,6 +121,10 @@ There are two things you can do about this warning:
   :ensure t
   :mode ("\\.cs\\'" . csharp-mode))
 
+;; graphql
+(use-package graphql-mode
+  :ensure t
+  :mode ("\\.graphql\\'"))
 
 (use-package xml-mode
   :mode "\\.xml\\'")
@@ -132,11 +141,13 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(custom-enabled-themes '(tsdh-dark))
+ '(custom-enabled-themes (quote (tsdh-dark)))
  '(custom-safe-themes
-   '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
+   (quote
+    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
+   (quote
+    (("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
      ("THEM" . "#2aa198")
      ("PROG" . "#268bd2")
@@ -150,10 +161,11 @@ There are two things you can do about this warning:
      ("TEMP" . "#875f00")
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
+     ("\\?\\?\\?+" . "#dc752f"))))
  '(package-selected-packages
-   '(auto-complete use-package spacemacs-theme smartparens rainbow-delimiters powerline helm elpy dimmer better-defaults beacon))
- '(pdf-view-midnight-colors '("#b2b2b2" . "#262626")))
+   (quote
+    (php-mode auto-complete use-package spacemacs-theme smartparens rainbow-delimiters powerline helm elpy dimmer better-defaults beacon)))
+ '(pdf-view-midnight-colors (quote ("#b2b2b2" . "#262626"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
